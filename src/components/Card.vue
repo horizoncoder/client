@@ -10,6 +10,8 @@
         <p class="card-text text-danger">${{ product.price }}</p>
         <router-link tag="a" class="btn btn-outline-primary mr-2" :to="{ name: 'product', params: { id: product._id }}">Desciption</router-link>
         <button class="btn btn-primary" @click="addToCart(product)">Buy Now</button>
+
+        
     </div>
 </div>
 </template>
