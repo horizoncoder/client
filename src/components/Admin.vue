@@ -30,7 +30,9 @@
     <textarea v-model="prod.description"  class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
   </div>
   <button v-on:click = "add()" type="button" class="btn btn-primary mb-2">Add</button>
-  <button v-on:click = "change()" type="button" class="btn btn-primary mb-2">change</button>
+  <button v-on:click = "change(prod._id)" type="button" class="btn btn-primary mb-2">change</button>
+  <a href = "#" @click="changeValue(prod._id)">{{prod._id}}</a>
+    <input type="text" v-model = "search">
     </div>
 </template>
 
@@ -76,7 +78,15 @@ export default {
                     console.log(response.data)
                     this.reload();
                 })
- }
+ },
+   changeValue: function(name){
+                this.prod = this.products.find(elem => {
+                    if(elem.name == name){
+                        return elem
+                    }
+                });
+                this.search = name
 }
+        }
 }
 </script>
