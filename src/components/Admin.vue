@@ -2,6 +2,12 @@
     <div class= "container">
         <center><h3>Admin Panel</h3></center>
 
+ <div class="form-price">
+    <label for="exampleFormControlInput1">Id(only for change )</label>
+    <input v-model="prod._id" type="Name" class="form-control" id="exampleFormControlInput1" placeholder="id" >
+
+  </div>
+
   <div class="form-price">
     <label for="exampleFormControlInput1">Name</label>
     <input v-model="prod.name" type="Name" class="form-control" id="exampleFormControlInput1" placeholder="name" >
@@ -24,24 +30,22 @@
     <textarea v-model="prod.description"  class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
   </div>
   <button v-on:click = "add()" type="button" class="btn btn-primary mb-2">Add</button>
-
+  <button v-on:click = "change()" type="button" class="btn btn-primary mb-2">change</button>
     </div>
 </template>
 
 <script>
-
 //import Vue from 'vue'
 //import axios from 'axios'
 //import VueAxios from 'vue-axios'
 import Api from '@/config/Api'
-
 export default {
     
      data: function() {
            return {
                 search:"",
                 products: [],
-                prod: {name:"", price:0, category:"", description:"",image:""},
+                prod: {name:"", price:0, category:"", description:"",image:"",_id:""},
            };
         },
         methods:{
@@ -56,11 +60,23 @@ export default {
                })
               .then((response) => {
                   console.log(response.data)
-              })
+              })       
+},
 
-
-        },
-
+ change: function(id){
+                Api().put(`/seeder/products/`+ id  ,{
+               name: this.prod.name,
+                    price: this.prod.price,
+                    category: this.prod.category,
+                    description: this.prod.description,
+                    image: this.prod.image,
+                    _id: this.prod._id
+                })
+                .then((response) => {
+                    console.log(response.data)
+                    this.reload();
+                })
+ }
 }
 }
 </script>
