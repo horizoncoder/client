@@ -1,4 +1,4 @@
-<template>
+<<template>
   <div class="card" style="width: 100%; height:100%;">
     <div class="card-body">
         <router-link tag="a" :to="{name: 'product', params: {id: product._id}}">
@@ -9,6 +9,8 @@
         <p class="card-text">{{ product.description.substring(0, 50) }}</p>
         <p class="card-text text-danger">${{ product.price }}</p>
         <router-link tag="a" class="btn btn-outline-primary mr-2" :to="{ name: 'product', params: { id: product._id }}">Desciption</router-link>
+        <a href = "#" v-on:click.prevent = "remove(product._id)" >Удалить</a>
+        id:{{product._id }}
         <button class="btn btn-primary" @click="addToCart(product)">Buy Now</button>
 
         
@@ -18,9 +20,21 @@
 
 <script>
 import mixins from '@/mixins/mixins';
+import Api from '@/config/Api';
 export default {
     props: ['product'],
-    mixins: [mixins]
+    mixins: [mixins],
+      methods:{
+remove: function(id){
+               Api().delete(`/products/`+ id )
+                .then((response) => {
+                    console.log(response.data)
+                    this.reload();
+                })
+
+      },
+    
+}
 }
 </script>
 
