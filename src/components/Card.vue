@@ -1,4 +1,4 @@
-<<template>
+<template>
   <div class="card" style="width: 100%; height:100%;">
     <div class="card-body">
         <router-link tag="a" :to="{name: 'product', params: {id: product._id}}">
